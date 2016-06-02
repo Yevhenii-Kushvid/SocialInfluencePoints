@@ -5,7 +5,7 @@ class UsersController < ApplicationController
 
     # Базовые очки влияния
     User.all.each{ |user|
-      @user_points = (Post.where(user_id: 1).count * 2 + Post.where(user_id: 1).inject(0) {|result, post| result + post.likes })
+      @user_points = (Post.where(user_id: 1).count * 2 + Post.where(user_id: 1).inject(0) {|result, post| result + post.likes }.to_f / Post.where(user_id: 1).count )
                       #Количество постов                  Количество постов
       User.all.each{ |user_2|
         if is_friend?(user.id, user_2.id)
